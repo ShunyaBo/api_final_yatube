@@ -9,6 +9,12 @@ from api.serializers import (
 from posts.models import Group, Post
 
 
+class CreateListGenericViewSet(mixins.CreateModelMixin,
+                               mixins.ListModelMixin,
+                               viewsets.GenericViewSet):
+    pass
+
+
 class PostViewSet(viewsets.ModelViewSet):
     '''Вьюсет получает записи, изменения и удаления постов.'''
     queryset = Post.objects.all()
@@ -47,9 +53,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=post)
 
 
-class FollowViewSet(mixins.CreateModelMixin,
-                    mixins.ListModelMixin,
-                    viewsets.GenericViewSet):
+class FollowViewSet(CreateListGenericViewSet):
     """Вьюсет для обьектов модели Follow."""
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated,)

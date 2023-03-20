@@ -31,7 +31,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     '''Вьюсет получает данные групп пользователей.'''
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.AllowAny,)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
